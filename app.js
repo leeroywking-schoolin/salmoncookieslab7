@@ -18,132 +18,43 @@ var hours = [
   '8pm'
 ];
 
+
 var firstAndPike = document.getElementById('1andpike');
 var seaTac = document.getElementById('seatac');
 var seattleCenter = document.getElementById('seacenter');
 var caphill = document.getElementById('caphill');
 var alki = document.getElementById('alkibeach');
 
-var firstAPObject = {
-  maxCustPerHour: 65,
-  minCustPerHour: 23,
-  cookiesPerSale: 6.3,
-  name: 'First and Pike',
-  randRange: function(){
-    return Math.floor((Math.random() *(this.maxCustPerHour - this.minCustPerHour)) + this.minCustPerHour)},
-  cookiesPerHour: this.numCustomerPerHour * this.cookiesPerSale,
+// You need to pass this constructor function the max, min and cookie per sale, also the htmlElement from above ie var locationObject = new LocationConstructor(100,30,3.5,html id));
 
-  render: function () {
+function LocationConstructor(max,min,cookiepersale,htmlElementId) {
+  this.maxCustPerHour = max;
+  this.minCustPerHour = min;
+  this.cookiesPerSale = cookiepersale;
+  this.randRange = function(){
+    return Math.floor((Math.random() *(this.maxCustPerHour - this.minCustPerHour)) + this.minCustPerHour)};
+  this.cookiesPerHour= this.numCustomerPerHour * this.cookiesPerSale
+  this.render= function () {
     var total = 0
     for (var i = 0; i < hours.length; i++) {
       var liEl = document.createElement('li');
       var numCustomerPerHour = this.randRange();
       var cookiesPerHour = Math.floor(numCustomerPerHour * this.cookiesPerSale);
       liEl.textContent = `${hours[i]}: ${cookiesPerHour} cookies.`;
-      firstAndPike.appendChild(liEl);
+      htmlElementId.appendChild(liEl);
       total = cookiesPerHour + total;
     }
     var liEltotal = document.createElement('li');
     liEltotal.textContent = `Total: ${total} cookies.`;
-    firstAndPike.appendChild(liEltotal);
+    htmlElementId.appendChild(liEltotal);
   }
 };
 
-var seaTacObject = {
-  maxCustPerHour: 24,
-  minCustPerHour: 2,
-  cookiesPerSale: 1.2,
-  randRange: function(){
-    return Math.floor((Math.random() *(this.maxCustPerHour - this.minCustPerHour)) + this.minCustPerHour)},
-  cookiesPerHour: this.numCustomerPerHour * this.cookiesPerSale,
-
-  render: function () {
-    var total = 0
-    for (var i = 0; i < hours.length; i++) {
-      var liEl = document.createElement('li');
-      var numCustomerPerHour = this.randRange();
-      var cookiesPerHour = Math.floor(numCustomerPerHour * this.cookiesPerSale);
-      liEl.textContent = `${hours[i]}: ${cookiesPerHour} cookies.`;
-      seaTac.appendChild(liEl);
-      total = cookiesPerHour + total;
-    }
-    var liEltotal = document.createElement('li');
-    liEltotal.textContent = `Total: ${total} cookies.`;
-    seaTac.appendChild(liEltotal);
-  }
-};
-
-var seaCentObject = {
-  maxCustPerHour: 38,
-  minCustPerHour: 11,
-  cookiesPerSale: 3.7,
-  randRange: function(){
-    return Math.floor((Math.random() *(this.maxCustPerHour - this.minCustPerHour)) + this.minCustPerHour)},
-  cookiesPerHour: this.numCustomerPerHour * this.cookiesPerSale,
-
-  render: function () {
-    var total = 0
-    for (var i = 0; i < hours.length; i++) {
-      var liEl = document.createElement('li');
-      var numCustomerPerHour = this.randRange();
-      var cookiesPerHour = Math.floor(numCustomerPerHour * this.cookiesPerSale);
-      liEl.textContent = `${hours[i]}: ${cookiesPerHour} cookies.`;
-      seattleCenter.appendChild(liEl);
-      total = cookiesPerHour + total;
-    }
-    var liEltotal = document.createElement('li');
-    liEltotal.textContent = `Total: ${total} cookies.`;
-    seattleCenter.appendChild(liEltotal);
-  }
-};
-
-var capHillObject = {
-  maxCustPerHour: 38,
-  minCustPerHour: 20,
-  cookiesPerSale: 2.3,
-  randRange: function(){
-    return Math.floor((Math.random() *(this.maxCustPerHour - this.minCustPerHour)) + this.minCustPerHour)},
-  cookiesPerHour: this.numCustomerPerHour * this.cookiesPerSale,
-
-  render: function () {
-    var total = 0
-    for (var i = 0; i < hours.length; i++) {
-      var liEl = document.createElement('li');
-      var numCustomerPerHour = this.randRange();
-      var cookiesPerHour = Math.floor(numCustomerPerHour * this.cookiesPerSale);
-      liEl.textContent = `${hours[i]}: ${cookiesPerHour} cookies.`;
-      caphill.appendChild(liEl);
-      total = cookiesPerHour + total;
-    }
-    var liEltotal = document.createElement('li');
-    liEltotal.textContent = `Total: ${total} cookies.`;
-    caphill.appendChild(liEltotal);
-  }
-};
-
-var alkiBeachObject = {
-  maxCustPerHour: 16,
-  minCustPerHour: 2,
-  cookiesPerSale: 4.6,
-  randRange: function(){
-    return Math.floor((Math.random() *(this.maxCustPerHour - this.minCustPerHour)) + this.minCustPerHour)},
-  cookiesPerHour: this.numCustomerPerHour * this.cookiesPerSale,
-
-  render: function () {
-    var total = 0
-    for (var i = 0; i < hours.length; i++) {
-      var liEl = document.createElement('li');
-      var numCustomerPerHour = this.randRange();
-      var cookiesPerHour = Math.floor(numCustomerPerHour * this.cookiesPerSale);
-      liEl.textContent = `${hours[i]}: ${cookiesPerHour} cookies.`;
-      alki.appendChild(liEl);
-      total = cookiesPerHour + total;
-    }
-    var liEltotal = document.createElement('li');
-    liEltotal.textContent = `Total: ${total} cookies.`;
-    alki.appendChild(liEltotal);
-  }
-};
+var firstAPObject = new LocationConstructor(65,23,6.3,firstAndPike);
+var seaTacObject = new LocationConstructor(24,2,1.2,seatac);
+var seaCentObject = new LocationConstructor(38,11,3.7,seacenter);
+var capHillObject = new LocationConstructor(38,20,2.3,caphill);
+var alkiBeachObject = new LocationConstructor(16,2,4.6,alkibeach);
 
 firstAPObject.render();
 seaTacObject.render();
