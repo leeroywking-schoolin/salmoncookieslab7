@@ -25,7 +25,7 @@ var seattleCenter = document.getElementById('seacenter');
 var caphill = document.getElementById('caphill');
 var alki = document.getElementById('alkibeach');
 var tablehead = document.getElementById('tablehead');
-
+var tablefoot = document.getElementById('rowtotals')
 // You need to pass this constructor function the max, min and cookie per sale, also the htmlElement from above ie var locationObject = new LocationConstructor(100,30,3.5,html id));
 
 function LocationConstructor(max,min,cookiepersale,htmlElementId,rowTitle) {
@@ -36,6 +36,7 @@ function LocationConstructor(max,min,cookiepersale,htmlElementId,rowTitle) {
   this.randRange = function(){
     return Math.floor((Math.random() *(this.maxCustPerHour - this.minCustPerHour)) + this.minCustPerHour)};
   this.cookiesPerHour= this.numCustomerPerHour * this.cookiesPerSale
+  this.cookiesByHour= []
   this.render= function () {
     var total = 0
     var rowTitleRend = document.createElement('td');
@@ -47,10 +48,12 @@ function LocationConstructor(max,min,cookiepersale,htmlElementId,rowTitle) {
       var cookiesPerHour = Math.floor(numCustomerPerHour * this.cookiesPerSale);
       liEl.textContent = `${cookiesPerHour} cookies.`;
       htmlElementId.appendChild(liEl);
+      this.cookiesByHour.push(cookiesPerHour);
       total = cookiesPerHour + total;
     }
     var liEltotal = document.createElement('td');
-    liEltotal.textContent = `Total: ${total} cookies.`;
+    liEltotal.textContent = `${total} cookies.`;
+    this.cookiesByHour.push(total);
     htmlElementId.appendChild(liEltotal);
   }
 };
@@ -81,4 +84,19 @@ function tableHeadRender(){
   tablehead.appendChild(totals);
 };
 
+function tableFootRender(){
+  var label = document.createElement('td');
+  label.innerHTML = ('By Hour Totals');
+  rowtotals.appendChild(label);
+  for (var i= 0; i < hours.length +1; i++){
+    var entry = document.createElement('td');
+    entry.textContent = (firstAPObject.cookiesByHour[i] + 
+      seaTacObject.cookiesByHour[i] + 
+      seaCentObject.cookiesByHour[i] + 
+      capHillObject.cookiesByHour[i] +
+      alkiBeachObject.cookiesByHour[i])
+      rowtotals.appendChild(entry)
+  }
+}
 tableHeadRender();
+tableFootRender();
