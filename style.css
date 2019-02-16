@@ -5,7 +5,18 @@ th {
   margin: 10px
 }
 
-td{
-  padding: 10px;
-  margin: 10px;
+td {
+  padding: 5px;
+  margin: 5px;
+  border: 5px black;
+}
+tr#rowtotals{
+    background:orange;
+}
+td:last-child{
+    background: red;
+}
+
+#rowtotals td:last-child{
+    background: purple;
 }
